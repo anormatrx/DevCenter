@@ -1,0 +1,94 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+.pytest_cache/
+*.pyc
+*.pyo
+
+# === Environment & Secrets (CRITICAL) ===
+.env
+.env.*
+!.env.comm.example
+.env.comm
+**/*.env.comm
+*.key
+*.pem
+*.crt
+secrets/
+
+# === Node ===
+node_modules/
+package-lock.json
+yarn.lock
+.yarn/
+
+# === .NET / C# ===
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.vs/
+*.user
+*.suo
+[Dd]ebug/
+[Rr]elease/
+*.nupkg
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+*.lnk
+
+# === Generated Reports (may contain secrets) ===
+config_check.txt
+config_check_*.txt
+
+# === Logs ===
+logs/
+*.log
+
+# === OpenCode ===
+.opencode/node_modules/
+
+# === Screenshots / Generated ===
+*.png
+*.avi
+*.wav
+screenshot*.png
+cmd_*.png
+browser*.png
+keyboard_demo.png
+
+# === Android ===
+*.apk
+*.aab
+local.properties
+.gradle/
+build/
+
+# === Temporary ===
+tmp/
+temp/
+*.tmp
+
+# === Testing ===
+.coverage
+htmlcov/
+.tox/

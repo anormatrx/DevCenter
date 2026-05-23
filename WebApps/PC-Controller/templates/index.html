@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC Controller</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div id="login-screen">
+  <div class="login-box">
+    <h1>🔐 تحكم بالجهاز</h1>
+    <input type="password" id="password-input" placeholder="كلمة المرور" autocomplete="off">
+    <button onclick="login()">دخول</button>
+    <p id="login-error"></p>
+  </div>
+</div>
+
+<div id="main-screen" style="display:none">
+  <header>
+    <h1>🖥️ PC-Controller</h1>
+    <button class="logout-btn" onclick="logout()">🚪 خروج</button>
+  </header>
+
+  <div class="grid">
+    <button class="card danger" onclick="confirmAction('shutdown')">⏻ إيقاف التشغيل</button>
+    <button class="card warning" onclick="confirmAction('restart')">🔄 إعادة تشغيل</button>
+    <button class="card info" onclick="apiCall('/api/lock')">🔒 قفل</button>
+    <button class="card" onclick="takeScreenshot()">📸 تصوير الشاشة</button>
+    <button class="card" onclick="apiCall('/api/volume/up')">🔊 رفع الصوت</button>
+    <button class="card" onclick="apiCall('/api/volume/down')">🔉 خفض الصوت</button>
+    <button class="card" onclick="apiCall('/api/volume/mute')">🔇 كتم الصوت</button>
+    <button class="card" onclick="apiCall('/api/cancel-shutdown')">⛔ إلغاء الإيقاف</button>
+  </div>
+
+  <div class="tools">
+    <div class="tool-section">
+      <h3>📂 فتح تطبيق</h3>
+      <div class="input-row">
+        <input type="text" id="app-input" placeholder="مثال: notepad.exe أو chrome">
+        <button onclick="openApp()">فتح</button>
+      </div>
+    </div>
+
+    <div class="tool-section">
+      <h3>💻 أمر مخصص</h3>
+      <div class="input-row">
+        <input type="text" id="cmd-input" placeholder="مثال: ipconfig">
+        <button onclick="runCmd()">تشغيل</button>
+      </div>
+      <pre id="cmd-output"></pre>
+    </div>
+  </div>
+
+  <div id="screenshot-modal" style="display:none" onclick="closeScreenshot()">
+    <div class="modal-content">
+      <img id="screenshot-img" src="">
+      <p>اضغط في أي مكان لإغلاق</p>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+﻿<Window x:Class="NoteCanvas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="NoteCanvas - ملاحظات بخطوط وألوان" Height="700" Width="1100"
+        WindowState="Normal" Background="#F0F0F0">
+    <Window.Resources>
+        <Style x:Key="ToolbarButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3E5A70"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#1A252F"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Main Toolbar -->
+        <Border Grid.Row="0" Background="#2C3E50" Padding="8,6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="NoteCanvas" FontSize="20" FontWeight="Bold"
+                           Foreground="White" VerticalAlignment="Center" Margin="4,0,16,0"/>
+
+                <Button Grid.Column="1" Name="NewNoteButton" Content="➕ ملاحظة جديدة"
+                        Style="{StaticResource ToolbarButton}" Margin="4,0" Click="NewNoteButton_Click"/>
+                <Button Grid.Column="2" Name="SaveButton" Content="💾 حفظ"
+                        Style="{StaticResource ToolbarButton}" Margin="4,0" Click="SaveButton_Click"/>
+                <Button Grid.Column="3" Name="FocusButton" Content="🔍 وضع التركيز"
+                        Style="{StaticResource ToolbarButton}" Margin="4,0" Click="FocusButton_Click"/>
+
+                <TextBlock Grid.Column="5" Text="خاصة © NoteCanvas" FontSize="12"
+                           Foreground="#AAA" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Status Bar (e.g. number of notes) -->
+        <Border Grid.Row="1" Name="StatusBar" Background="#34495E" Padding="8,3">
+            <TextBlock Name="StatusText" Text="جاهز" Foreground="#CCC" FontSize="12"/>
+        </Border>
+
+        <!-- Canvas for Notes -->
+        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      Background="#F0F0F0">
+            <Canvas Name="NoteCanvas" Width="3000" Height="3000"
+                    MouseDown="NoteCanvas_MouseDown"/>
+        </ScrollViewer>
+
+        <!-- Bottom Footer -->
+        <Border Grid.Row="3" Background="#2C3E50" Padding="8,3">
+            <TextBlock Foreground="#AAA" FontSize="11"
+                       Text="انقر نقرًا مزدوجًا على عنوان الملاحظة لإظهار/إخفاء شريط التنسيق | اسحب من الزاوية لتغيير الحجم"/>
+        </Border>
+    </Grid>
+</Window>

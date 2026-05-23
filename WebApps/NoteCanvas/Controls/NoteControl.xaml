@@ -1,0 +1,113 @@
+<UserControl x:Class="NoteCanvas.Controls.NoteControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="320" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TitleBarBg" Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="ToolbarBg" Color="#F5F5F5"/>
+    </UserControl.Resources>
+
+    <Border Name="NoteBorder" CornerRadius="8" BorderBrush="#B0B0B0" BorderThickness="1"
+            Background="#FFFFE0" RenderOptions.BitmapScalingMode="HighQuality">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="4" Opacity="0.25" BlurRadius="8"/>
+        </Border.Effect>
+        <Grid Name="RootGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title Bar / Drag Handle -->
+            <Border Grid.Row="0" Name="TitleBar" Background="{StaticResource TitleBarBg}"
+                    CornerRadius="8,8,0,0" Padding="4,2" Cursor="SizeAll"
+                    MouseLeftButtonDown="TitleBar_MouseDown" MouseLeftButtonUp="TitleBar_MouseUp"
+                    MouseMove="TitleBar_MouseMove">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="📌" FontSize="14" VerticalAlignment="Center" Margin="2,0"/>
+                    <TextBox Grid.Column="1" Name="TitleTextBox" Text="ملاحظة جديدة"
+                             BorderThickness="0" Background="Transparent"
+                             FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"
+                             TextChanged="Title_TextChanged"/>
+                    <Button Grid.Column="2" Name="ReminderButton" Content="🔔" FontSize="13"
+                            Width="28" Height="24" Background="Transparent" BorderThickness="0"
+                            ToolTip="تعيين تذكير" Click="ReminderButton_Click"/>
+                    <Button Grid.Column="3" Name="CloseButton" Content="✕" FontSize="13"
+                            Width="28" Height="24" Background="Transparent" BorderThickness="0"
+                            Foreground="#CC3333" ToolTip="حذف الملاحظة" Click="CloseButton_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- Format Toolbar (collapsible) -->
+            <Border Grid.Row="1" Name="FormatBar" Background="{StaticResource ToolbarBg}"
+                    Padding="4,2" Height="32">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0" Name="FontFamilyCombo" Width="110" Height="24"
+                              FontSize="12" SelectionChanged="FontFamily_Changed"/>
+                    <ComboBox Grid.Column="1" Name="FontSizeCombo" Width="50" Height="24"
+                              FontSize="12" Margin="4,0" SelectionChanged="FontSize_Changed"/>
+                    <ToggleButton Grid.Column="2" Name="BoldButton" Content="B" Width="26" Height="24"
+                                  FontWeight="Bold" FontSize="12" ToolTip="عريض"
+                                  Background="Transparent" BorderBrush="#CCC"
+                                  Checked="Bold_Checked" Unchecked="Bold_Unchecked"/>
+                    <ToggleButton Grid.Column="3" Name="ItalicButton" Content="I" Width="26" Height="24"
+                                  FontStyle="Italic" FontSize="12" ToolTip="مائل"
+                                  Background="Transparent" BorderBrush="#CCC" Margin="2,0"
+                                  Checked="Italic_Checked" Unchecked="Italic_Unchecked"/>
+                    <ToggleButton Grid.Column="4" Name="UnderlineButton" Content="U" Width="26" Height="24"
+                                  FontSize="12" ToolTip="تحته خط"
+                                  Background="Transparent" BorderBrush="#CCC"
+                                  Checked="Underline_Checked" Unchecked="Underline_Unchecked"/>
+                    <Button Grid.Column="5" Name="TextColorButton" Width="26" Height="24"
+                            Background="Transparent" BorderBrush="#CCC" ToolTip="لون النص"
+                            Margin="2,0" Click="TextColorButton_Click">
+                        <TextBlock Text="A" FontSize="14" FontWeight="Bold" Foreground="Black"/>
+                    </Button>
+                    <Button Grid.Column="6" Name="BgColorButton" Width="26" Height="24"
+                            Background="Transparent" BorderBrush="#CCC" ToolTip="لون الخلفية"
+                            Click="BgColorButton_Click">
+                        <Border Width="14" Height="14" CornerRadius="2" BorderBrush="#888" BorderThickness="1"
+                                Background="#FFFFE0"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Content Area -->
+            <RichTextBox Grid.Row="2" Name="ContentBox" BorderThickness="0"
+                         VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                         Padding="8,6" FontSize="14" FontFamily="Segoe UI"
+                         SelectionChanged="Content_SelectionChanged"
+                         PreviewMouseDown="Content_PreviewMouseDown"
+                         IsDocumentEnabled="True"/>
+
+            <!-- Resize Handle -->
+            <Border Grid.Row="3" Name="ResizeHandle" Height="10" Cursor="SizeNWSE"
+                    Background="Transparent" CornerRadius="0,0,8,0"
+                    MouseLeftButtonDown="Resize_MouseDown" MouseLeftButtonUp="Resize_MouseUp"
+                    MouseMove="Resize_MouseMove">
+                <Border Height="4" Width="30" CornerRadius="2" Background="#B0B0B0"
+                        HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
