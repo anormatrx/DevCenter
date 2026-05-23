@@ -36,41 +36,55 @@
 - `/lint` - تشغيل الـ linter
 - `/telegram` - تشغيل بوت التحكم عن بعد عبر Telegram
 
-## المهارات المتاحة (اختر المناسب للمهمة)
+## ⭐ النظام الأساسي: Smart Builder + Design Agent
 
+### التدفق الأساسي (الأهم)
+```
+User Request (ابني/صمم/طور)
+        ↓
+Smart Builder (يبني المشروع كامل)
+        ↓
+يحتاج تصميم؟ YES → يرسل لـ Design Agent
+                        ↓
+                  Design Agent: يخطط، يختار نمط، يبني HTML+CSS+JS
+                        ↓
+                  يرجع التصميم جاهز للـ Builder
+                        ↓
+Smart Builder: يضيف backend، routing، يشغل ويسلم
+```
+
+### متى يرجع Builder لـ Design Agent
+قال المستخدم:
+- "ابني موقع/متجر/لوحة تحكم/تطبيق" → أول شيء أرسل لـ Design Agent
+- "صمم واجهة/صفحة/تصميم" → استخدم Design Agent مباشر
+- "حسّن/جمّل/طور الواجهة" → استشر Design Agent
+- أي مشروع فيه HTML → Builder يحتاج يصمم
+
+### المهارات الأساسية (المطلوبة للمشروع)
+- **`smart-builder`** — يخطط، يبني، يكتشف المشاكل ويحلها، يستدعي Design Agent عند الحاجة
+- **`design-master`** — متخصص تصميم واجهات، عنده مكتبات CDN، أنماط جاهزة (glassmorphism, neon, minimal, dark premium)
+
+## المهارات الأخرى المتاحة
 ### تطوير وبناء
-- `python-dev` - Python كامل: type hints, PEP 8, testing, logging, دوال مساعدة
-- `python-build` - بناء Python: venv, install, build, pytest coverage, Docker, CI/CD
-- `web-dev` - 🆕 تطوير ويب كامل: فتح متصفح، جلب مكتبات، بناء دردشة، ربط بالسيرفر
-- `web-build` - بناء ويب: npm, vite, webpack, env vars, deploy (Vercel, Netlify, Pages)
-- `android-build` - بناء Android: Gradle, APK, AAB, signing, Google Play
-- `build-automation` - أتمتة: Taskfile, pre-commit hooks, CI/CD, scripts, changelog
+- `python-dev` / `python-build`
+- `web-dev` / `web-build`
+- `android-build`
+- `build-automation`
 
 ### تحليل وذكاء اصطناعي
-- `data-analysis` - تحليل بيانات: pandas, matplotlib, numpy, sklearn, تنظيف، تصور، تقارير
-- `ai-development` - تطوير AI: Ollama, LangChain, Streaming, Fallback, Evaluation, API keys
+- `data-analysis` - تحليل بيانات
+- `ai-development` - تطوير AI
 
 ### أدوات
-- `git-workflow` - Git كامل: commits, branches, merge, rebase, cherry-pick, stash, bisect, حل تعارضات
-- `code-review` - مراجعة كود: أخطاء منطقية، أمان، أداء، type hints، SQL injection، XSS، checklist
-- `project-setup` - تهيئة مشاريع: هيكل كامل (Python/Web/Android), .gitignore, README, opencode config
+- `git-workflow`
+- `code-review`
+- `project-setup`
 
-### تواصل (تحكم عن بعد)
-- `messaging` - 🆕 تحكم كامل من Telegram + WhatsApp: فهم عربي بالذكاء الاصطناعي، تنفيذ أوامر، بناء مشاريع، بحث ويب، قراءة ملفات (يتطلب API key من @BotFather)
+### تواصل
+- `messaging` - Telegram + WhatsApp
 
-### تحكم وإدارة
-- **`admin-mouse`** - 🆕 تحكم كامل: ماوس + متصفح + نقر + تنقل + تعبئة حقول + بناء مشاريع + إصلاح
-
-## المشاريع
-### نشط
-- `GitRepos/MyApp/` - تحليل بيانات + AI (Python)
-- `PythonAI/AI_Assistant/` - بيئة تطوير AI
-
-### قيد الإنشاء
-- `AndroidProjects/` - مشاريع Android
-- `WebApps/` - تطبيقات ويب (ChatApp server شغال + ملاحظات)
-- `Tools/` - أدوات و scripts (notes.py جاهز)
-- `Logs/` - سجلات وملفات (logger.py + start-session.ps1)
+### تحكم
+- `admin-mouse` - تحكم كامل بالجهاز
 
 ## التشغيل 24/7
 - `run-opencode-247.bat` - شغّل OpenCode بدون انقطاع (يمنع السكون + auto-restart)
